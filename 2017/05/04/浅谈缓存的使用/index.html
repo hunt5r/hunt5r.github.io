@@ -15,32 +15,29 @@
     <meta name="keywords" content="hunt5r,java,后端,互联网,安全,互联网安全,设计模式,大数据,xss,jstorm,hadoop" />
   
 
-  <meta name="description" content="##浅谈缓存的使用
-背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
+  <meta name="description" content="title:浅谈缓存的使用背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
 直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
 ###1.世界观-哪些场景下应该用缓存？
 缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
-###2.价值观-缓存类型有哪些及各自特性是什么？">
+###2.价值观-缓存类型有哪些及各自特性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="猎人物语">
 <meta property="og:url" content="http://hunt5r.github.io/2017/05/04/浅谈缓存的使用/index.html">
 <meta property="og:site_name" content="猎人物语">
-<meta property="og:description" content="##浅谈缓存的使用
-背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
+<meta property="og:description" content="title:浅谈缓存的使用背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
 直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
 ###1.世界观-哪些场景下应该用缓存？
 缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
-###2.价值观-缓存类型有哪些及各自特性是什么？">
+###2.价值观-缓存类型有哪些及各自特性">
 <meta property="og:image" content="http://hunt5r.github.io/./cache-mindmanager.bmp">
-<meta property="og:updated_time" content="2017-05-02T11:40:35.489Z">
+<meta property="og:updated_time" content="2017-05-04T11:49:29.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="猎人物语">
-<meta name="twitter:description" content="##浅谈缓存的使用
-背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
+<meta name="twitter:description" content="title:浅谈缓存的使用背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
 直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
 ###1.世界观-哪些场景下应该用缓存？
 缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
-###2.价值观-缓存类型有哪些及各自特性是什么？">
+###2.价值观-缓存类型有哪些及各自特性">
 <meta name="twitter:image" content="http://hunt5r.github.io/./cache-mindmanager.bmp">
 
   
@@ -154,6 +151,11 @@
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-浅谈缓存的使用"><span class="toc-text">title:浅谈缓存的使用</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -199,8 +201,8 @@
 
   <div class="article-content">
     
-      <p>##浅谈缓存的使用</p>
-<pre><code>背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
+      <hr>
+<h2 id="title-浅谈缓存的使用"><a href="#title-浅谈缓存的使用" class="headerlink" title="title:浅谈缓存的使用"></a>title:浅谈缓存的使用</h2><pre><code>背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能
 直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
 </code></pre><p>###1.世界观-哪些场景下应该用缓存？</p>
 <pre><code>缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
@@ -303,7 +305,7 @@
   <span id="cover" class="cover hide"></span>
   <div id="modal-dialog" class="modal-dialog hide-dialog">
     <div class="modal-header">
-      <span id="close" class="btn-close">Close</span>
+      <span id="close" class="btn-close">关闭</span>
     </div>
     <hr>
     <div class="modal-body">
