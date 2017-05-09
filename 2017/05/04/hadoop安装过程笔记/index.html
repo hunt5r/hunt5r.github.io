@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>猎人物语</title>
+  <title>hadoop2.7.3安装说明 | 猎人物语</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,88 +15,58 @@
     <meta name="keywords" content="hunt5r,java,后端,互联网,安全,互联网安全,设计模式,大数据,xss,jstorm,hadoop" />
   
 
-  <meta name="description" content="title:hadoop2.7.3安装说明###环境
+  <meta name="description" content="##环境
+1231. jdk1.82. centos3. hadoop-2.7.3
+##安装
+11.解压 tar -zxvf hadoop-2.7.3.tar.gz
 
+12.重命名 mv hadoop-2.7.3.tar.gz
+13.创建input文件夹
 
-jdk1.8
-centos
-hadoop-2.7.3
+14.配置（该版本的配置保存于hadoop/etc/hadoop目录下）
 
+1编辑core-site.xml,详情见下图
 
-###安装
-
-1.解压 tar -zxvf hadoop-2.7.3.tar.gz
-
-
-
-2.重命名 mv hadoop-2.7.3.tar.gz
-3.创建input文件夹
-
-
-
-4.配置（该版本的配置保存于hadoop/etc/hadoop目录下）
-
-
-编辑core-site.x">
+1编辑hdfs-s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="猎人物语">
+<meta property="og:title" content="hadoop2.7.3安装说明">
 <meta property="og:url" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/index.html">
 <meta property="og:site_name" content="猎人物语">
-<meta property="og:description" content="title:hadoop2.7.3安装说明###环境
+<meta property="og:description" content="##环境
+1231. jdk1.82. centos3. hadoop-2.7.3
+##安装
+11.解压 tar -zxvf hadoop-2.7.3.tar.gz
 
+12.重命名 mv hadoop-2.7.3.tar.gz
+13.创建input文件夹
 
-jdk1.8
-centos
-hadoop-2.7.3
+14.配置（该版本的配置保存于hadoop/etc/hadoop目录下）
 
+1编辑core-site.xml,详情见下图
 
-###安装
-
-1.解压 tar -zxvf hadoop-2.7.3.tar.gz
-
-
-
-2.重命名 mv hadoop-2.7.3.tar.gz
-3.创建input文件夹
-
-
-
-4.配置（该版本的配置保存于hadoop/etc/hadoop目录下）
-
-
-编辑core-site.x">
-<meta property="og:image" content="http://hunt5r.github.io/hadoop1.png">
-<meta property="og:image" content="http://hunt5r.github.io/hadoop_input.png">
-<meta property="og:image" content="http://hunt5r.github.io/hadoop2.png">
-<meta property="og:image" content="http://hunt5r.github.io/hadoop-core-site.png">
-<meta property="og:image" content="http://hunt5r.github.io/hadoop-hdfs-site.png">
-<meta property="og:updated_time" content="2017-05-04T11:47:57.762Z">
+1编辑hdfs-s">
+<meta property="og:image" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/hadoop1.png">
+<meta property="og:image" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/hadopp_input.png">
+<meta property="og:image" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/hadoop2.png">
+<meta property="og:image" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/hadoop-core-site.png">
+<meta property="og:image" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/hadoop-hdfs-site.png">
+<meta property="og:updated_time" content="2017-05-09T11:55:34.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="猎人物语">
-<meta name="twitter:description" content="title:hadoop2.7.3安装说明###环境
+<meta name="twitter:title" content="hadoop2.7.3安装说明">
+<meta name="twitter:description" content="##环境
+1231. jdk1.82. centos3. hadoop-2.7.3
+##安装
+11.解压 tar -zxvf hadoop-2.7.3.tar.gz
 
+12.重命名 mv hadoop-2.7.3.tar.gz
+13.创建input文件夹
 
-jdk1.8
-centos
-hadoop-2.7.3
+14.配置（该版本的配置保存于hadoop/etc/hadoop目录下）
 
+1编辑core-site.xml,详情见下图
 
-###安装
-
-1.解压 tar -zxvf hadoop-2.7.3.tar.gz
-
-
-
-2.重命名 mv hadoop-2.7.3.tar.gz
-3.创建input文件夹
-
-
-
-4.配置（该版本的配置保存于hadoop/etc/hadoop目录下）
-
-
-编辑core-site.x">
-<meta name="twitter:image" content="http://hunt5r.github.io/hadoop1.png">
+1编辑hdfs-s">
+<meta name="twitter:image" content="http://hunt5r.github.io/2017/05/04/hadoop安装过程笔记/hadoop1.png">
 
   
 
@@ -209,17 +179,12 @@ hadoop-2.7.3
 </div>
 
 
-  <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-hadoop2-7-3安装说明"><span class="toc-text">title:hadoop2.7.3安装说明</span></a></li></ol>
-  </div>
-
 
 
 <div class="content content-post CENTER">
    <article id="post-hadoop安装过程笔记" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">(no title)</h1>
+    <h1 class="post-title">hadoop2.7.3安装说明</h1>
 
     <div class="article-meta">
       <span>
@@ -259,33 +224,20 @@ hadoop-2.7.3
 
   <div class="article-content">
     
-      <hr>
-<h2 id="title-hadoop2-7-3安装说明"><a href="#title-hadoop2-7-3安装说明" class="headerlink" title="title:hadoop2.7.3安装说明"></a>title:hadoop2.7.3安装说明</h2><p>###环境</p>
-<blockquote>
-<ol>
-<li>jdk1.8</li>
-<li>centos</li>
-<li>hadoop-2.7.3</li>
-</ol>
-</blockquote>
-<p>###安装</p>
-<blockquote>
-<p>1.解压 tar -zxvf hadoop-2.7.3.tar.gz</p>
-</blockquote>
-<p><img src="/hadoop1.png" alt=""></p>
-<blockquote>
-<p>2.重命名 mv hadoop-2.7.3.tar.gz</p>
-<p>3.创建input文件夹</p>
-</blockquote>
-<p><img src="/hadoop_input.png" alt=""></p>
-<blockquote>
-<p>4.配置（该版本的配置保存于hadoop/etc/hadoop目录下）</p>
-</blockquote>
-<p><img src="/hadoop2.png" alt=""></p>
-<pre><code>编辑core-site.xml,详情见下图
-</code></pre><p><img src="/hadoop-core-site.png" alt=""></p>
-<pre><code>编辑hdfs-site.xml，详情见下图
-</code></pre><p><img src="/hadoop-hdfs-site.png" alt=""></p>
+      <p>##环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1. jdk1.8</div><div class="line">2. centos</div><div class="line">3. hadoop-2.7.3</div></pre></td></tr></table></figure>
+<p>##安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1.解压 tar -zxvf hadoop-2.7.3.tar.gz</div></pre></td></tr></table></figure>
+<p><img src="/2017/05/04/hadoop安装过程笔记/hadoop1.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2.重命名 mv hadoop-2.7.3.tar.gz</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3.创建input文件夹</div></pre></td></tr></table></figure>
+<p><img src="/2017/05/04/hadoop安装过程笔记/hadopp_input.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4.配置（该版本的配置保存于hadoop/etc/hadoop目录下）</div></pre></td></tr></table></figure>
+<p><img src="/2017/05/04/hadoop安装过程笔记/hadoop2.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编辑core-site.xml,详情见下图</div></pre></td></tr></table></figure>
+<p><img src="/2017/05/04/hadoop安装过程笔记/hadoop-core-site.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编辑hdfs-site.xml，详情见下图</div></pre></td></tr></table></figure>
+<p><img src="/2017/05/04/hadoop安装过程笔记/hadoop-hdfs-site.png" alt=""></p>
 
     
   </div>
@@ -296,10 +248,10 @@ hadoop-2.7.3
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2017/05/04/浅谈缓存的使用/">
+    <a class="show pull-left" href="/2017/05/04/hive使用笔记/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2017/05/04/hive使用笔记/">
+    <a class="show pull-right" href="/2017/05/04/Linux清除用户登录记录和命令历史方法/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
