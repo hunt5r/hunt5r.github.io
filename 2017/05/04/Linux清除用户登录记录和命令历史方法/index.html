@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>猎人物语</title>
+  <title>Linux清除用户登录记录和命令历史方法 | 猎人物语</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,31 +15,22 @@
     <meta name="keywords" content="hunt5r,java,后端,互联网,安全,互联网安全,设计模式,大数据,xss,jstorm,hadoop" />
   
 
-  <meta name="description" content="##Linux清除用户登录记录和命令历史方法
-###清除登陆系统成功的记录
-[root@localhost root]# echo &amp;gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
+  <meta name="description" content="清除登陆系统成功的记录[root@localhost root]# echo &amp;gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
 [root@localhost root]# last //此时即查不到用户登录信息
-###清除登陆系统失败的记录
-[root@localhost root]# echo &amp;gt; /v">
+清除登陆系统失败的记录[root@localhost root]# echo &amp;gt; /var/log/btmp //此文件默认打开时乱码，可查到登陆失">
 <meta property="og:type" content="article">
-<meta property="og:title" content="猎人物语">
+<meta property="og:title" content="Linux清除用户登录记录和命令历史方法">
 <meta property="og:url" content="http://hunt5r.github.io/2017/05/04/Linux清除用户登录记录和命令历史方法/index.html">
 <meta property="og:site_name" content="猎人物语">
-<meta property="og:description" content="##Linux清除用户登录记录和命令历史方法
-###清除登陆系统成功的记录
-[root@localhost root]# echo &amp;gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
+<meta property="og:description" content="清除登陆系统成功的记录[root@localhost root]# echo &amp;gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
 [root@localhost root]# last //此时即查不到用户登录信息
-###清除登陆系统失败的记录
-[root@localhost root]# echo &amp;gt; /v">
-<meta property="og:updated_time" content="2017-05-02T11:40:33.751Z">
+清除登陆系统失败的记录[root@localhost root]# echo &amp;gt; /var/log/btmp //此文件默认打开时乱码，可查到登陆失">
+<meta property="og:updated_time" content="2017-05-09T13:23:23.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="猎人物语">
-<meta name="twitter:description" content="##Linux清除用户登录记录和命令历史方法
-###清除登陆系统成功的记录
-[root@localhost root]# echo &amp;gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
+<meta name="twitter:title" content="Linux清除用户登录记录和命令历史方法">
+<meta name="twitter:description" content="清除登陆系统成功的记录[root@localhost root]# echo &amp;gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
 [root@localhost root]# last //此时即查不到用户登录信息
-###清除登陆系统失败的记录
-[root@localhost root]# echo &amp;gt; /v">
+清除登陆系统失败的记录[root@localhost root]# echo &amp;gt; /var/log/btmp //此文件默认打开时乱码，可查到登陆失">
 
   
 
@@ -152,12 +143,17 @@
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#清除登陆系统成功的记录"><span class="toc-text">清除登陆系统成功的记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清除登陆系统失败的记录"><span class="toc-text">清除登陆系统失败的记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清除历史执行命令"><span class="toc-text">清除历史执行命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入空历史记录"><span class="toc-text">导入空历史记录</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
    <article id="post-Linux清除用户登录记录和命令历史方法" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">(no title)</h1>
+    <h1 class="post-title">Linux清除用户登录记录和命令历史方法</h1>
 
     <div class="article-meta">
       <span>
@@ -197,18 +193,13 @@
 
   <div class="article-content">
     
-      <p>##Linux清除用户登录记录和命令历史方法</p>
-<p>###清除登陆系统成功的记录</p>
-<pre><code>[root@localhost root]# echo &gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
+      <h2 id="清除登陆系统成功的记录"><a href="#清除登陆系统成功的记录" class="headerlink" title="清除登陆系统成功的记录"></a>清除登陆系统成功的记录</h2><pre><code>[root@localhost root]# echo &gt; /var/log/wtmp //此文件默认打开时乱码，可查到ip等信息
 [root@localhost root]# last //此时即查不到用户登录信息
-</code></pre><p>###清除登陆系统失败的记录</p>
-<pre><code>[root@localhost root]# echo &gt; /var/log/btmp //此文件默认打开时乱码，可查到登陆失败信息
+</code></pre><h2 id="清除登陆系统失败的记录"><a href="#清除登陆系统失败的记录" class="headerlink" title="清除登陆系统失败的记录"></a>清除登陆系统失败的记录</h2><pre><code>[root@localhost root]# echo &gt; /var/log/btmp //此文件默认打开时乱码，可查到登陆失败信息
 [root@localhost root]# lastb //查不到登陆失败信息
-</code></pre><p>###清除历史执行命令</p>
-<pre><code>[root@localhost root]# history -c //清空历史执行命令
+</code></pre><h2 id="清除历史执行命令"><a href="#清除历史执行命令" class="headerlink" title="清除历史执行命令"></a>清除历史执行命令</h2><pre><code>[root@localhost root]# history -c //清空历史执行命令
 [root@localhost root]# echo &gt; ./.bash_history //或清空用户目录下的这个文件即可
-</code></pre><p>###导入空历史记录</p>
-<pre><code>[root@localhost root]# vi /root/history //新建记录文件
+</code></pre><h2 id="导入空历史记录"><a href="#导入空历史记录" class="headerlink" title="导入空历史记录"></a>导入空历史记录</h2><pre><code>[root@localhost root]# vi /root/history //新建记录文件
 [root@localhost root]# history -c //清除记录 
 [root@localhost root]# history -r /root/history.txt //导入记录 
 [root@localhost root]# history //查询导入结果
@@ -222,10 +213,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2017/05/04/hadoop安装过程笔记/">
+    <a class="show pull-left" href="/2017/05/04/kettle7踩过的坑/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2017/05/04/kylin安装说明/">
+    <a class="show pull-right" href="/2017/05/09/hadoop安装过程笔记/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

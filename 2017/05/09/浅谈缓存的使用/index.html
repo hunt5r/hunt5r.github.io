@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>浅谈缓存的使用 | 猎人物语</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="hunt5r,java,后端,互联网,安全,互联网安全,设计模式,大数据,xss,jstorm,hadoop" />
+  
+
+  <meta name="description" content="背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
+
+1.世界观-哪些场景下应该用缓存？
+缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
+
+2.价值观-缓存类型有哪些及各自特性是什么？1.本地缓存:
+
+磁盘或内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈缓存的使用">
+<meta property="og:url" content="http://hunt5r.github.io/2017/05/09/浅谈缓存的使用/index.html">
+<meta property="og:site_name" content="猎人物语">
+<meta property="og:description" content="背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
+
+1.世界观-哪些场景下应该用缓存？
+缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
+
+2.价值观-缓存类型有哪些及各自特性是什么？1.本地缓存:
+
+磁盘或内存">
+<meta property="og:image" content="http://hunt5r.github.io/2017/05/09/浅谈缓存的使用/cache-mindmanager.bmp">
+<meta property="og:updated_time" content="2017-05-09T13:03:50.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈缓存的使用">
+<meta name="twitter:description" content="背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。
+
+1.世界观-哪些场景下应该用缓存？
+缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。
+
+2.价值观-缓存类型有哪些及各自特性是什么？1.本地缓存:
+
+磁盘或内存">
+<meta name="twitter:image" content="http://hunt5r.github.io/2017/05/09/浅谈缓存的使用/cache-mindmanager.bmp">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?30a097bb6e11354a06a2cde48d25d3e3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">菜单</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">菜单</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-世界观-哪些场景下应该用缓存？"><span class="toc-text">1.世界观-哪些场景下应该用缓存？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-价值观-缓存类型有哪些及各自特性是什么？"><span class="toc-text">2.价值观-缓存类型有哪些及各自特性是什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-评估篇-如何选择与取舍？"><span class="toc-text">3.评估篇-如何选择与取舍？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-设计篇-缓存的设计与策略"><span class="toc-text">4.设计篇-缓存的设计与策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-技术篇-常见缓存技术对比"><span class="toc-text">5.技术篇-常见缓存技术对比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-浅谈缓存的使用" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">浅谈缓存的使用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.05.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>hunt5r</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.tuliangcheng.cn/2017/05/09/浅谈缓存的使用/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <blockquote>
+<p>背景：在大规模访问场景下，当单个实体存在更新导致单个缓存、分页缓存、还有一些列表的缓存更新，这将导致系统性能直线下降，如果单个实体频繁更新，更会导致缓存不仅提升不了性能还会降低性能。</p>
+</blockquote>
+<h1 id="1-世界观-哪些场景下应该用缓存？"><a href="#1-世界观-哪些场景下应该用缓存？" class="headerlink" title="1.世界观-哪些场景下应该用缓存？"></a>1.世界观-哪些场景下应该用缓存？</h1><blockquote>
+<p>缓存应适用于对实时性要求不高的场景(PS:如果频繁更新缓存所产生的消耗会高于直接查询数据库的消耗)。</p>
+</blockquote>
+<h1 id="2-价值观-缓存类型有哪些及各自特性是什么？"><a href="#2-价值观-缓存类型有哪些及各自特性是什么？" class="headerlink" title="2.价值观-缓存类型有哪些及各自特性是什么？"></a>2.价值观-缓存类型有哪些及各自特性是什么？</h1><p>1.本地缓存:</p>
+<blockquote>
+<p>磁盘或内存缓存，其优点是速度快，成本低，如果期望响应快它可能是个不错的选择。但是对于web系统的集群负载均衡结构来说，它可能就会受限制。因为当数据库数据发生变化时你没有一个有效的方式去更新本地缓存。当然你可能会考虑使用单独的任务从不同的服务器去同步更新本地缓存，但是由于缓存的低时效性与高访问量，它所产生的成本与性能可能需要慎重考虑。</p>
+</blockquote>
+<p>2.分布式缓存：</p>
+<blockquote>
+<p>分布式缓存存在的目的是为了提供比RDB(关系型数据库)更高的TPS(MySql的tps在1500，memcached的TPS能达到15w)和扩展性，同时也解决了本地缓存数据同步的问题。</p>
+</blockquote>
+<p>3.客户端缓存：</p>
+<blockquote>
+<p>客户端缓存一般指web浏览器缓存，适用于无状态数据，可以有效减少对服务器的请求，从而降低服务器的压力。</p>
+</blockquote>
+<p>4.数据库缓存：</p>
+<blockquote>
+<p>主要指数据库查询缓存，大部分数据库都会有提供，比如mysql。其原理是用查询语句的hash值做为key,对结果进行缓存。</p>
+</blockquote>
+<p>5.页面缓存：</p>
+<blockquote>
+<p>主要指将动态页面静态化，存放于CDN中或nginx中，用于提高访问效率。</p>
+</blockquote>
+<h1 id="3-评估篇-如何选择与取舍？"><a href="#3-评估篇-如何选择与取舍？" class="headerlink" title="3.评估篇-如何选择与取舍？"></a>3.评估篇-如何选择与取舍？</h1><blockquote>
+<p>在真实场景中，往往会面临着众多的缓存技术，以及不同服务器配置的选择。但是我们要如何从众多的缓存技术中选择适合我们的技术呢（流行和泛滥并不意味着适用更不代表标准）？</p>
+</blockquote>
+<p><img src="/2017/05/09/浅谈缓存的使用/cache-mindmanager.bmp" alt="指标"></p>
+<h1 id="4-设计篇-缓存的设计与策略"><a href="#4-设计篇-缓存的设计与策略" class="headerlink" title="4.设计篇-缓存的设计与策略"></a>4.设计篇-缓存的设计与策略</h1><p>##缓存粒度</p>
+<blockquote>
+<p>缓存粒度不仅需要考虑缓存数据的多少，还需要考虑缓存数据的大小。如memcached，其设计需要要求业务能很好的控制其缓存的大小，对于过大的缓存数据会导致带宽成本及网络消耗变大。而对于数据的多少则需要基于业务场景来考虑，比如你需要从一个list或map中取出一条数据，然而其它多余的数据则会造成带宽，内存的浪费，如果你只存储你需要的一条则会提升它的响应与性能，当然这样也会导致产生很多缓存块。其次是缓存更新，如果把所有数据放到一个chunk中，当其中一条数据有更新则会导致整个chunk更新，这也是不必要的性能浪费。</p>
+</blockquote>
+<p>##缓存更新策略</p>
+<blockquote>
+<p>缓存更新涉及主动更新与被动更新</p>
+<blockquote>
+<p>主动更新：就是当数据发生变化时主动更新缓存，这样在缓存的整个生命周期中都不会存在空窗期。但是这种策略又会带来并发期的问题。如在集群环境下，当一台服务器正在更新缓存，但是还没有写入时另一台服务器也开始更新，此时便会导致一方数据丢失。一般规避办法可考虑锁控制与版本控制。</p>
+<p>被动更新：被动更新是给缓存设置一个过期时间，当缓存过期后会从数据库中查询出数据存放到缓存中。该种方式存在窗口期问题。如当缓存过期后还未从数据库查询出数据写入到缓存中，该段时期的所有请求都会交由数据库处理，这便会给数据库造成一定的压力与风险。</p>
+</blockquote>
+</blockquote>
+<p>##数据对象序列化</p>
+<blockquote>
+<p>分布式缓存的本质就是将所有的业务数据对象序列化为字节数组，然后保存到自己的内存中。在对象序列化时需要考虑一下几点：序列化速度，对象压缩比，支持的数据范围，易用性。</p>
+</blockquote>
+<p>##缓存KEY的设计</p>
+<blockquote>
+<p>缓存key主要需要考虑缓存key的唯一性，以及缓存key的长度。如有时缓存key是以包名+方法名+参数组成，但是当长度过长时会导致缓存存储失败。</p>
+</blockquote>
+<p>##缓存对象结构</p>
+<blockquote>
+<p>由于存储的数据结构不同，数据的读取方式也会有所不同。如list与map，list是以遍历形式读取，而map是通过散列算法读取。</p>
+</blockquote>
+<p>##防止缓存穿透</p>
+<blockquote>
+<p>所谓缓存穿透，便是当查询一个数据不存在时未能成功缓存，下次查询会继续查询数据库，这样便会增加数据库压力，严重的甚至会导致数据库宕机。规避方案便是当数据不存在时可考虑存空字符串（PS:其它方案可自行考虑，此处仅供参考）。</p>
+</blockquote>
+<h1 id="5-技术篇-常见缓存技术对比"><a href="#5-技术篇-常见缓存技术对比" class="headerlink" title="5.技术篇-常见缓存技术对比"></a>5.技术篇-常见缓存技术对比</h1><p>##memcached</p>
+<blockquote>
+<p>优势：简单的通信协议，高效的内存管理，高性能的网络通信（libevent），丰富的客户端程序。    </p>
+<p>缺点及注意事项：不支持数据持久化，数据对象不能大于1M，缓存key长度不能大于250字符</p>
+</blockquote>
+<p>##redis</p>
+<blockquote>
+<p>优势：支持丰富的数据类型如list,map,set等集合类的存储，支持数据持久化，支持数据备份</p>
+<p>缺点及注意事项：据说在多核CPU上表现不及memcached（Memcached 是多线程，非阻塞IO复用的网络模型，分为监听主线程和worker子线程。Redis 使用单线程的IO复用模型）,事务支持比较弱(只能保证事物中的每个操作连续执行)</p>
+</blockquote>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><blockquote>
+<p>在性能上redis与memcached没有太多区别，当然前提是你的实际请求量得在一定范围内。因此一般需求，两者的使用更倾向与redis。而对于请求量很大，性能要求很高的可能就需要酌情考虑自己的影响因素了。</p>
+</blockquote>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/05/09/hadoop安装过程笔记/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hunt5r';
+    
+    var disqus_url = 'http://hunt5r.github.io/2017/05/09/浅谈缓存的使用/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hunt5r.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
